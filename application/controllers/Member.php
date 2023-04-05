@@ -67,18 +67,28 @@ class Member extends CI_Controller
             'min_length' => 'Password Terlalu Pendek'
         ]);
         $this->form_validation->set_rules('password2', 'Repeat Password', 'required|trim|matches[password1]');
-        if ($this->form_validation->run() == false) {
-
-            $data = [
-                'user' => "Pengunjung",
-                'judul' => "Katalog Buku",
-                'buku' => $this->ModelBuku->getBuku()->result(),
-            ];
-            $this->load->view('templates/templates-user/header', $data);
-            $this->load->view('buku/daftarbuku', $data);
-            $this->load->view('templates/templates-user/modal');
-            $this->load->view('templates/templates-user/footer', $data);
+        
+        if ($this->form_validation->run() == false) { 
+            $data = [ 'user' =>"Pengunjung",
+                     'judul' => "Katalog Buku",
+                      'buku' => $this->ModelBuku->getBuku()->result()];
+        $this->load->view('templates/templates-user/header', $data);
+        $this->load->view('buku/daftarbuku', $data);
+        $this->load->view('templates/templates-user/modal');
+        $this->load->view('templates/templates-user/footer', $data);
         } else {
+        // if ($this->form_validation->run() == false) {
+
+        //     $data = [
+        //         'user' => "Pengunjung",
+        //         'judul' => "Katalog Buku",
+        //         'buku' => $this->ModelBuku->getBuku()->result(),
+        //     ];
+        //     $this->load->view('templates/templates-user/header', $data);
+        //     $this->load->view('buku/daftarbuku', $data);
+        //     $this->load->view('templates/templates-user/modal');
+        //     $this->load->view('templates/templates-user/footer', $data);
+        // } else {
 
 
             $email = $this->input->post('email', true);
@@ -181,4 +191,5 @@ class Member extends CI_Controller
         $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-message" role="alert">Anda telah logout!!</div>');
         redirect('home');
     }
+
 }
